@@ -77,7 +77,7 @@ function Register() {
                         required
                         />
                     </div>
-                    <button type="submit" className=''>Sign in</button>
+                    <button type="submit" className=''>Sign up</button>
                 </form>
             </div>
         </div>

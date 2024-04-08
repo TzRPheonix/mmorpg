@@ -1,0 +1,30 @@
+.fight{
+    height: 100vh;
+    background-color: #32373B;
+}
+
+.HeaderFight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.fightZone {
+    display: flex;
+    justify-content: space-between;
+}
+  
+.playerZone {
+    text-align: left;
+}
+  
+.monsterZone {
+    text-align: right;
+}
+  
