@@ -79,6 +79,29 @@ router.post('/addMonster', async (req, res) => {
   }
 });
 
+// Post Method for adding multiple monsters
+router.post('/addMultipleMonsters', async (req, res) => {
+  const monsters = req.body;
+  try {
+    for (let i = 0; i < monsters.length; i++) {
+      const { monstername, monsterPV, monsterDMG } = monsters[i];
+      const existingMonster = await monsterModel.findOne({ monstername });
+      if (existingMonster) {
+        return res.status(400).json({ message: `Monstre ${monstername} déjà enregistré.` });
+      }
+      const newMonster = new monsterModel({
+        monstername,
+        monsterPV,
+        monsterDMG
+      });
+      await newMonster.save();
+    }
+    res.status(200).json({ message: 'Monstres ajoutés.' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // Delete method for deleting a monster
 router.delete('/deleteMonster', async (req, res) => {
   const { monstername } = req.body;

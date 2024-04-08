@@ -7,7 +7,7 @@ async function sendEmail(to, subject, body) {
     secure: false,
     auth: {
       user: 'mathispalincourt@gmail.com',
-      pass: 'Scoubidou95'
+      pass: 'Scoubidou95' 
     }
   });
 
