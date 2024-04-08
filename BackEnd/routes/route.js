@@ -160,6 +160,11 @@ router.get('/getRandomMonster', async (req, res) => {
     const randomMonster = await monsterModel.findOne().skip(randomIndex);
     randomMonster.monsterPV = Math.round(randomMonster.monsterPV * (existingUser.starterLVL / 10));
     randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * (existingUser.starterLVL / 10));
+    if (existingUser.starterLVL % 5 == 0) {
+      randomMonster.monsterPV = Math.round(randomMonster.monsterPV * 1.5);
+      randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * 1.5);
+      console.log("Combat de boss !")
+    }
     res.json(randomMonster);
   } catch (error) {
     res.status(500).json({ message: error.message });
