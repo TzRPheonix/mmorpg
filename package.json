@@ -1,5 +1,5 @@
 {
-  "dependencies": {
+  "devDependencies": {
     "react-router-dom": "^6.22.3"
   }
 }
