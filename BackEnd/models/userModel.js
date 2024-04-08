@@ -37,6 +37,10 @@ const userSchema = new mongoose.Schema({
         default: 0,
         type: Number
     },
+    deathCount: {
+        default: 0,
+        type: Number
+    },
     resetToken: {
         type: String
     },

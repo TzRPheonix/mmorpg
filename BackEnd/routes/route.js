@@ -71,9 +71,43 @@ router.post('/addMonster', async (req, res) => {
       monsterDMG
     });
 
-    const savedMonster = await newMonster.save();
+    await newMonster.save();
 
     res.status(200).json({ message: 'Monstre ajouté.'});
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete method for deleting a monster
+router.delete('/deleteMonster', async (req, res) => {
+  const { monstername } = req.body;
+  try {
+    const deletedMonster = await monsterModel.findOneAndDelete({ monstername });
+    if (!deletedMonster) {
+      return res.status(400).json({ message: 'Monstre introuvable.' });
+    }
+    res.status(200).json({ message: 'Monstre supprimé.' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Update method for updating a monster
+router.put('/updateMonster', async (req, res) => {
+  const { monstername, monsterPV, monsterDMG } = req.body;
+  try {
+    const existingMonster = await monsterModel.findOne({ monstername });
+    if (!existingMonster) {
+      return res.status(400).json({ message: 'Monstre introuvable.' });
+    }
+
+    existingMonster.monsterPV = monsterPV;
+    existingMonster.monsterDMG = monsterDMG;
+
+    await existingMonster.save();
+
+    res.status(200).json({ message: 'Monstre mis à jour.'});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -112,6 +146,7 @@ router.put('/EndCombat', async (req, res) => {
     }
     if (starterPV <= 0) {
       existingUser.starterPV = existingUser.starterMAXPV;
+      existingUser.deathCount += 1;
       await existingUser.save();
       return res.status(200).json({ message: 'Vous avez perdu.' });
     }
@@ -132,6 +167,16 @@ router.put('/EndCombat', async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
+
+// Get leaderboard Info
+router.get('/leaderboard', async (req, res) => {
+  try {
+    const data = await userModel.find({}, { username: 1, killCount: 1, deathCount: 1, starterLVL: 1 });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 
 // Get all method for account
 router.get('/getAll', async (req, res) => {
@@ -155,6 +200,20 @@ router.get('/getUser', async (req, res) => {
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete method for deleting a user
+router.delete('/deleteUser', async (req, res) => {
+  const { username } = req.body;
+  try {
+    const deletedUser = await userModel.findOneAndDelete({ username });
+    if (!deletedUser) {
+      return res.status(400).json({ message: 'User introuvable.' });
+    }
+    res.status(200).json({ message: 'User supprimé.' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
