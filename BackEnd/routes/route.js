@@ -148,9 +148,9 @@ router.get('/getAllMonster', async (req, res) => {
 })
 
 // Get random method for monster
-router.get('/getRandomMonster', async (req, res) => {
+router.get('/getRandomMonster/:username', async (req, res) => {
   try {
-    const { username } = req.body;
+    const { username } = req.params;
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
       return res.status(400).json({ message: 'User introuvable.' });
@@ -158,8 +158,8 @@ router.get('/getRandomMonster', async (req, res) => {
     const count = await monsterModel.countDocuments();
     const randomIndex = Math.floor(Math.random() * count);
     const randomMonster = await monsterModel.findOne().skip(randomIndex);
-    randomMonster.monsterPV = Math.round(randomMonster.monsterPV * (existingUser.starterLVL / 10));
-    randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * (existingUser.starterLVL / 10));
+    randomMonster.monsterPV += Math.round(randomMonster.monsterPV * (existingUser.starterLVL / 10));
+    randomMonster.monsterDMG += Math.round(randomMonster.monsterDMG * (existingUser.starterLVL / 10));
     if (existingUser.starterLVL % 5 == 0) {
       randomMonster.monsterPV = Math.round(randomMonster.monsterPV * 1.5);
       randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * 1.5);
@@ -251,14 +251,14 @@ router.get('/getAll', async (req, res) => {
 })
 
 // Get user method for an account
-router.get('/getUser', async (req, res) => {
-  const { username } = req.body;
+router.get('/getUser/:username', async (req, res) => {
+  const { username } = req.params;
   try {
     const user = await userModel.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
-    res.json(user);
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
