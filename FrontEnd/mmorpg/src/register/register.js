@@ -25,9 +25,23 @@ function Register() {
         setPasswordConfirm(event.target.value);
       }
     
-      const handleSubmit = (event) => {
+      const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('form :', { username, email, password, passwordConfirm });
+        try {
+          const response = await fetch('http://localhost:3000/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+          });
+          const data = await response.json();
+          console.log('form :', { username, email, password, passwordConfirm });
+          console.log('response :', data);
+          window.location.href = 'http://localhost:3001/';
+        } catch (error) {
+          console.error('Error:', error);
+        }
       }
 
   return (
