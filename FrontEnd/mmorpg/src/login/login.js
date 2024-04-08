@@ -44,32 +44,35 @@ function Login() {
         <div className="left-side"></div>
         <div className="right-side">
           <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <h1>Titre Principal</h1>
-            <h2>Sous-Titre</h2>
-            <Link to="/register">Cliquez ici si vous n'êtes pas inscrit !</Link>
+            <span className='titleLogin'>Login</span>
+            <span className='subtitleLogin'>No register ? <Link to="/register">Sign in</Link></span>
           </div>
           <hr></hr>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>Email:</label>
+            <form onSubmit={handleSubmit} className='formLogin'>
+              <div className='form-input'>
+                <label className='labelForm'>Please enter your mail:</label>
+                <br />
                 <input
                   type="email"
                   value={email}
                   onChange={handleChangeEmail}
                   required
+                  className='input'
                 />
               </div>
-              <div>
-                <label>Password:</label>
+              <div className='form-input'>
+                <label className='labelForm'>Please enter your password:</label>
+                <br />
                 <input
                   type="password"
                   value={password}
                   onChange={handleChangePassword}
                   required
+                  className='input'
                 />
               </div>
-              <button type="submit" className=''>Sign in</button>
+              <button type="submit" className='btnForm'>Sign in</button>
             </form>
           </div>
         </div>

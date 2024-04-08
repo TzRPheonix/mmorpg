@@ -50,50 +50,57 @@ function Register() {
             <div className="left-side"></div>
             <div className="right-side">
                 <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <h1>Titre Principal</h1>
-                <h2 >Sous-Titre</h2>
-                <Link to="/">Cliquez ici pour vous connecter !</Link>
+                <span className='titleRegister'>Create a new account</span>
+                <span className='subtitleRegister'>Already registered ? <Link to="/">Sign up</Link></span>
             </div>
             <hr></hr>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Username:</label>
+                <form onSubmit={handleSubmit} className='formRegister'>
+                    <div className='form-input'>
+                        <label className='labelForm'>Please enter your username:</label>
+                        <br />
                         <input
                         type="text"
                         value={username}
                         onChange={handleChangeUsername}
                         required
+                        className='input'
                         />
                     </div>
-                    <div>
-                        <label>Email:</label>
+                    <div className='form-input'>
+                        <label className='labelForm'>Please enter your mail:</label>
+                        <br />
                         <input
                         type="email"
                         value={email}
                         onChange={handleChangeEmail}
                         required
+                        className='input'
                         />
                     </div>
-                    <div>
-                        <label>Password:</label>
+                    <div className='form-input'>
+                        <label className='labelForm'>Please enter your password:</label>
+                        <br />
                         <input
                         type="password"
                         value={password}
                         onChange={handleChangePassword}
                         required
+                        className='input'
                         />
                     </div>
-                    <div>
-                        <label>Confirm password:</label>
+                    <div className='form-input'>
+                        <label className='labelForm'>Please enter your Confirm password:</label>
+                        <br />
                         <input
                         type="password"
                         value={passwordConfirm}
                         onChange={handleChangePasswordConfirm}
                         required
+                        className='input'
                         />
                     </div>
-                    <button type="submit" className=''>Sign up</button>
+                    <button type="submit" className='btnForm'>Sign up</button>
                 </form>
             </div>
         </div>
