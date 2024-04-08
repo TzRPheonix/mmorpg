@@ -288,13 +288,12 @@ router.post('/login', async (req, res) => {
       if (!user) {
         return res.status(400).json({ message: 'Utilisateur introuvable.' });
       }
-      console.log('user.password:', user.password);
-      console.log('password:', password);
+      console.log('user ', user.username);
       const match = await bcrypt.compare(password, user.password);
       console.log(match)
       if (match) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '168h' });
-        return res.status(200).json({ message: 'Authentification réussie.', token});
+        return res.status(200).json({ message: 'Authentification réussie.', username: user.username, token});
       } else {
         return res.status(400).json({ message: 'Authentification échouée.' });
       }
