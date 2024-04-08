@@ -1,5 +1,6 @@
 import './register.css';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
 
@@ -24,9 +25,23 @@ function Register() {
         setPasswordConfirm(event.target.value);
       }
     
-      const handleSubmit = (event) => {
+      const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('form :', { username, email, password, passwordConfirm });
+        try {
+          const response = await fetch('http://localhost:3000/api/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+          });
+          const data = await response.json();
+          console.log('form :', { username, email, password, passwordConfirm });
+          console.log('response :', data);
+          window.location.href = 'http://localhost:3001/';
+        } catch (error) {
+          console.error('Error:', error);
+        }
       }
 
   return (
@@ -37,6 +52,7 @@ function Register() {
                 <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <h1>Titre Principal</h1>
                 <h2 >Sous-Titre</h2>
+                <Link to="/">Cliquez ici pour vous connecter !</Link>
             </div>
             <hr></hr>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

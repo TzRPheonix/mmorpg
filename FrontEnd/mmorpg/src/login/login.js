@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './login.css'; 
+import { Link } from 'react-router-dom';
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -13,9 +15,26 @@ function Login() {
     setPassword(event.target.value);
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Form :', { email, password });
+    try {
+      const response = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      console.log(data);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        window.location.href = 'http://localhost:3001/choiceStarter';
+      }
+    } catch (error) {
+      alert('An error occurred. Please try again.');
+      console.log(error);
+    }
   }
 
   return (
@@ -26,6 +45,7 @@ function Login() {
           <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <h1>Titre Principal</h1>
             <h2>Sous-Titre</h2>
+            <Link to="/register">Cliquez ici si vous n'êtes pas inscrit !</Link>
           </div>
           <hr></hr>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
