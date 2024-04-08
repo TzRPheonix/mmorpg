@@ -1,5 +1,6 @@
 import './register.css';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
 
@@ -37,6 +38,7 @@ function Register() {
                 <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <h1>Titre Principal</h1>
                 <h2 >Sous-Titre</h2>
+                <Link to="/">Cliquez ici pour vous connecter !</Link>
             </div>
             <hr></hr>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -77,7 +79,7 @@ function Register() {
                         required
                         />
                     </div>
-                    <button type="submit" className=''>Sign in</button>
+                    <button type="submit" className=''>Sign up</button>
                 </form>
             </div>
         </div>

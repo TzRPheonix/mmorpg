@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './login.css'; 
+import { Link } from 'react-router-dom';
+
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -26,6 +28,7 @@ function Login() {
           <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <h1>Titre Principal</h1>
             <h2>Sous-Titre</h2>
+            <Link to="/register">Cliquez ici si vous n'êtes pas inscrit !</Link>
           </div>
           <hr></hr>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -48,7 +51,7 @@ function Login() {
                   required
                 />
               </div>
-              <button type="submit" className=''>Sign up</button>
+              <button type="submit" className=''>Sign in</button>
             </form>
           </div>
         </div>
