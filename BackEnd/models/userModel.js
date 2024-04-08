@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
         default: 1,
         type: Number
     },
+    healthPotionCount: {
+        default: 0,
+        type: Number
+    },
     killCount: {
         default: 0,
         type: Number
