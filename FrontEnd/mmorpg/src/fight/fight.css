@@ -14,17 +14,45 @@
     display: flex;
     justify-content: center;
 }
+.containerFight{
+    width: 100%;
+}
 
 .fightZone {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
   
 .playerZone {
+    width: 33%;
     text-align: left;
+    margin-right: 7em;
+
 }
   
 .monsterZone {
+    width: 33%;
     text-align: right;
+    margin-left: 7em;
+
 }
+
+.attack{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.btnAttack {
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-color: #ff0000; 
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+
   
