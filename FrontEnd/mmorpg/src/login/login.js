@@ -29,6 +29,7 @@ function Login() {
       console.log(data);
       if (data.token) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.username);
         window.location.href = 'http://localhost:3001/choiceStarter';
       }
     } catch (error) {
