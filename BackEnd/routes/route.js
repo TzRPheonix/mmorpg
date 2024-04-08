@@ -317,7 +317,7 @@ router.post('/reset-password', async (req, res) => {
       user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
       await user.save();
       // Send the password reset email with the reset link
-      const resetLink = `https://example.com/reset-password/${token}`;
+      const resetLink = `http://localhost:3000/api/reset-password/${token}`;
       const emailBody = `Cliquer sur ce lien pour réinitialiser votre mot de passe : <a href="${resetLink}">${resetLink}</a><br><br>Si vous n'êtes pas à l'origine de ce changement, modifier immédiatement votre mot de passe.`;
       await sendEmail(email, 'Modification de votre mot de passe.', emailBody);
       res.status(200).json({ message: 'Lien de réinitialisation envoyé.' });
