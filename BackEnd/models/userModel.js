@@ -17,17 +17,25 @@ const userSchema = new mongoose.Schema({
         default: "None",
         type: String
     },
+    starterMAXPV: {
+        default: 0,
+        type: Number
+    },
     starterPV: {
-        default: "None",
-        type: String
+        default: 0,
+        type: Number
     },
     starterDMG: {
-        default: "None",
-        type: String
+        default: 0,
+        type: Number
     },
     starterLVL: {
-        default: "None",
-        type: String
+        default: 1,
+        type: Number
+    },
+    killCount: {
+        default: 0,
+        type: Number
     },
     resetToken: {
         type: String
