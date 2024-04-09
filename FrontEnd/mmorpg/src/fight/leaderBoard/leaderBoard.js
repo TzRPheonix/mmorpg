@@ -35,19 +35,19 @@ function LeaderBoard() {
     }, []);
 
     const handleClose = () => {
-        setShowLeaderBoard(false);
+        setShowLeaderBoard(!showLeaderBoard);
     };
-
-    if (!showLeaderBoard) {
-        return null;
-    }
 
   return (
     <div className='leaderBoard'>
         <div className='leaderBoard-overlay'>
             <div className='leaderBoard-content'>
-                <span className='leaderBoard-title'>LeaderBoard </span>
-                <button onClick={handleClose}>Fermer</button>
+                <div style={{display:'flex'}}>
+                    <button style={{display:'none',float:'left'}} onClick={handleClose}>Fermer</button>
+                    <span className='leaderBoard-title'>LeaderBoard </span>
+                    <button style={{float:'right'}} onClick={handleClose}>Fermer</button>
+                </div>
+                
                 <div className='leaderBoard-container'>
                         <table className='leaderBoard-table'>
                             <thead>
