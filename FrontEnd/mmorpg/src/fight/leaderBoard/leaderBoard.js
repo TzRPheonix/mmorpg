@@ -42,9 +42,9 @@ function LeaderBoard() {
                     {leaderboardData.map(user => (
                         <div key={user.id} className='user'>
                             <span className='username'>{user.username}</span>
-                            <span className='killcount'>{user.killcount}</span>
+                            <span className='killcount'>{user.killCount}</span>
                             <span className='deathCount'>{user.deathCount}</span>
-                            <span className='level'>{user.level}</span>
+                            <span className='level'>{user.starterLVL}</span>
                         </div>
                     ))}
                 </div>
