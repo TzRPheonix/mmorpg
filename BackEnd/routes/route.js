@@ -193,8 +193,10 @@ router.put('/EndCombat', async (req, res) => {
       existingUser.healthPotionCount += 1;
       console.log('Potion de soin trouvée !');
     }
-    if (starterPV > existingUser.starterPV) {
+    if (starterPV < existingUser.starterPV) {
       existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 2;
+    }else {
+      existingUser.starterPV += 2;
     }
     existingUser.starterMAXPV += 2;
     existingUser.starterDMG += 2;
