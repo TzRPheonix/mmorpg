@@ -120,8 +120,7 @@ function Fight() {
                 body: JSON.stringify({ username, StarterPV })
             });
             const data = await response.json();
-            console.log(data.message);
-            if (StarterPV !== data.newPV) {
+                if (StarterPV !== data.newPV) {
                 setNbPotion(nbPotion - 1);
                 setStarterPV(data.newPV);
             }

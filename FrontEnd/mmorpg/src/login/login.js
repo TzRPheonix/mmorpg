@@ -30,6 +30,7 @@ function Login() {
       if (data.token) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
+        console.log(data.starterName)
         if (data.starterName === "None") {
           window.location.href = 'http://localhost:3001/choiceStarter';
         }else{
