@@ -32,60 +32,58 @@ function ChoiceStarter() {
 return (
     <div className="ChoiceStarter">
         <div className='HeaderChoiceStarter'>
-            <span className='title' style={{color:"#9B1D20"}}>Select your starter</span>
+            <span className='titleChoiceStarter' style={{color:"#9B1D20"}}>Select your starter</span>
         </div>
         <div className='Choice'>
             <div className="grid-container">
                     <div className="grid-item">
-                            <div className="square">
-                                    <span>Name : Tygraxe</span>
-                                    <span>PV : 50</span>
-                                    <span>Damage: 10</span>
-
-                            </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Tygraxe", 50, 10)}>Select</button>
+                        <div className="square">
+                                <span>Name : Tygraxe</span>
+                                <span>PV : 150</span>
+                                <span>Damage: 5</span>
+                        </div>
+                        <button className="select-button" onClick={() => handleChoiceStarter("Tygraxe", 150, 5)}>Select</button>
+                    </div>
+                    <div className="grid-item">
+                        <div className="square">                    
+                                <span>Name : Volpeur</span>
+                                <span>PV : 100</span>
+                                <span>Damage: 10</span>
+                        </div>
+                        <button className="select-button" onClick={() => handleChoiceStarter("Volpeur", 100, 10)}>Select</button>
+                    </div>
+                    <div className="grid-item">
+                        <div className="square">
+                                <span>Name : Azerty</span>
+                                <span>PV : 80</span>
+                                <span>Damage: 20</span>
+                        </div>
+                        <button className="select-button" onClick={() => handleChoiceStarter("Azerty", 80, 20)}>Select</button>
+                    </div>
+                    <div className="grid-item">
+                        <div className="square">
+                                <span>Name : Valstrax</span>
+                                <span>PV : 90</span>
+                                <span>Damage: 15</span>
+                        </div>
+                        <button className="select-button" onClick={() => handleChoiceStarter("Valstrax", 90, 15)}>Select</button>
                     </div>
                     <div className="grid-item">
                             <div className="square">                    
-                                    <span>Name : Volpeur</span>
-                                    <span>PV : 100</span>
-                                    <span>Damage: 2</span>
-                            </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Volpeur", 100, 2)}>Select</button>
-                    </div>
-                    <div className="grid-item">
-                            <div className="square">
-                                    <span>Name : Azerty</span>
-                                    <span>PV : 80</span>
-                                    <span>Damage: 5</span>
-                            </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Azerty", 80, 5)}>Select</button>
-                    </div>
-                    <div className="grid-item">
-                            <div className="square">
-                                    <span>Name : Tygraxe</span>
-                                    <span>PV : 50</span>
-                                    <span>Damage: 10</span>
+                                    <span>Name : Monokuma</span>
+                                    <span>PV : 60</span>
+                                    <span>Damage: 30</span>
 
                             </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Tygraxe", 50, 10)}>Select</button>
+                            <button className="select-button" onClick={() => handleChoiceStarter("Monokuma", 60, 30)}>Select</button>
                     </div>
                     <div className="grid-item">
-                            <div className="square">                    
-                                    <span>Name : Volpeur</span>
-                                    <span>PV : 100</span>
-                                    <span>Damage: 2</span>
-
-                            </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Volpeur", 100, 2)}>Select</button>
-                    </div>
-                    <div className="grid-item">
-                            <div className="square">
-                                    <span>Name : Azerty</span>
-                                    <span>PV : 80</span>
-                                    <span>Damage: 5</span>
-                            </div>
-                            <button className="select-button" onClick={() => handleChoiceStarter("Azerty", 80, 5)}>Select</button>
+                        <div className="square">
+                                <span>Name : Fatalix</span>
+                                <span>PV : 170</span>
+                                <span>Damage: 3</span>
+                        </div>
+                        <button className="select-button" onClick={() => handleChoiceStarter("Fatalix", 170, 3)}>Select</button>
                     </div>
             </div>
         </div>
