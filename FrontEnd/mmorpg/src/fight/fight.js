@@ -5,6 +5,7 @@ import './fight.css';
 import leaveImage from '../img/icons8-settings-50.png';
 import leaderBoardImage from '../img/icons8-leaderboard-50.png'
 import LeaderBoard from './leaderBoard/leaderBoard';
+import Leave from './leave/leave';
 
 async function loadUserInfo() {
     try {
@@ -75,6 +76,7 @@ function Fight() {
     const [message, setMessage] = useState(null);
 
     const [showLeaderBoard, setShowLeaderBoard] = useState(false);
+    const [showLeave, setShowLeave] = useState(false);
 
 
     useEffect(() => {
@@ -160,6 +162,10 @@ function Fight() {
         setShowLeaderBoard(true);
     };
 
+    const handleClickLeave = () => {
+        setShowLeaderBoard(true);
+    };
+
   return (
     <div className="fight">
         <div className='HeaderFight'>
@@ -167,7 +173,7 @@ function Fight() {
             <div className='title-container'>
                 <span className='title' style={{color:"#9B1D20"}}>{StarterLVL}</span>
             </div>
-            <button className='leaveFight'><img src={leaveImage} alt='Leave' /></button>
+            <button className='leaveFight' onClick={handleClickLeave}><img src={leaveImage} alt='Leave' /></button>
         </div>
         <div className='containerFight'>
             <div className='fightZone'>
@@ -203,6 +209,8 @@ function Fight() {
             )}
         </div>
         {showLeaderBoard && <LeaderBoard />}
+        {showLeave && <Leave />}
+
     </div>
   );
 }
