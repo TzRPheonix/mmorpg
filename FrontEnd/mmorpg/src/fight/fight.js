@@ -2,8 +2,8 @@ import './fight.css';
 import React, { useState, useEffect } from 'react';
 import LifeBar from './lifeBar/lifeBar';
 import './fight.css'; 
-import leaveImage from '../img/icons8-settings-50.png';
-import leaderBoardImage from '../img/icons8-leaderboard-50.png'
+import leaveImage from '../img/settings.png';
+import leaderBoardImage from '../img/leaderboard.png'
 import LeaderBoard from './leaderBoard/leaderBoard';
 import Leave from './leave/leave';
 
