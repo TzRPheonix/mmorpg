@@ -2,11 +2,12 @@ import './leave.css';
 import React from 'react';
 
 function Leave() {
+    const [showFight, setShowFight] = useState(true);
 
     const handleContinue = () => {
-        console.log('Continue');
+        setShowFight(false);
       };
-    
+
       const handleStop = () => {
         console.log('Stop');
       };

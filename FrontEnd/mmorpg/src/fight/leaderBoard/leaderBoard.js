@@ -22,7 +22,7 @@ async function loadLeaderBoard() {
 function LeaderBoard() {
     const username = localStorage.getItem('username');
     const [leaderboardData, setLeaderboardData] = useState([]);
-    const [showLeaderBoard, setShowLeaderBoard] = useState(true);
+    const [showFight, setShowFight] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,7 +35,7 @@ function LeaderBoard() {
     }, []);
 
     const handleClose = () => {
-        setShowLeaderBoard(!showLeaderBoard);
+        setShowFight(false);
     };
 
   return (
@@ -43,9 +43,9 @@ function LeaderBoard() {
         <div className='leaderBoard-overlay'>
             <div className='leaderBoard-content'>
                 <div style={{display:'flex'}}>
-                    <button style={{display:'none',float:'left'}} onClick={handleClose}>Fermer</button>
+                    <button style={{display:'none',float:'left'}}>Fermer</button>
                     <span className='leaderBoard-title'>LeaderBoard </span>
-                    <button style={{float:'right'}} onClick={handleClose}>Fermer</button>
+                    <button style={{float:'right'}} onClick={handleClose}>Close</button>
                 </div>
                 
                 <div className='leaderBoard-container'>
