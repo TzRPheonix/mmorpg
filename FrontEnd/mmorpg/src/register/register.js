@@ -51,7 +51,7 @@ function Register() {
             <div className="right-side">
                 <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <span className='titleRegister'>Create a new account</span>
-                <span className='subtitleRegister'>Already registered ? <Link to="/">Sign up</Link></span>
+                <span className='subtitleRegister'>Already registered ? <Link to="/">Sign in</Link></span>
             </div>
             <hr></hr>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

@@ -45,7 +45,7 @@ function Login() {
         <div className="right-side">
           <div style={{ height: '25%', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
             <span className='titleLogin'>Login</span>
-            <span className='subtitleLogin'>No register ? <Link to="/register">Sign in</Link></span>
+            <span className='subtitleLogin'>Not registered ? <Link to="/register">Sign up</Link></span>
           </div>
           <hr></hr>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
