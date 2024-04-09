@@ -37,6 +37,9 @@ function LeaderBoard() {
     const handleClose = () => {
         setShowFight(false);
     };
+    if (!showFight) {
+        return null;
+    }
 
   return (
     <div className='leaderBoard'>

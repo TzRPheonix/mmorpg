@@ -12,6 +12,10 @@ function Leave() {
         console.log('Stop');
       };
 
+      if (!showFight) {
+        return null;
+    }
+
     return (
         <div className='leave'>
             <div className='leave-overlay'>
