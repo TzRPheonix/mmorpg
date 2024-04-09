@@ -162,7 +162,7 @@ function Fight() {
     };
 
     const handleClickLeave = () => {
-        setShowLeaderBoard(true);
+        setShowLeave(true);
     };
 
   return (
