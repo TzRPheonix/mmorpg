@@ -1,5 +1,5 @@
 import './leave.css'; 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Leave() {
     const [showFight, setShowFight] = useState(true);
