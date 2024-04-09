@@ -2,6 +2,9 @@ import './fight.css';
 import React, { useState, useEffect } from 'react';
 import LifeBar from './lifeBar/lifeBar';
 import './fight.css'; 
+import leaveImage from '../img/icons8-settings-50.png';
+import leaderBoardImage from '../img/icons8-leaderboard-50.png'
+import LeaderBoard from './leaderBoard/leaderBoard';
 
 async function loadUserInfo() {
     try {
@@ -70,6 +73,8 @@ function Fight() {
     const [monsterDMG, setMonsterDMG] = useState(null);
     const [nbPotion, setNbPotion] = useState(null);
     const [message, setMessage] = useState(null);
+
+    const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
 
     useEffect(() => {
@@ -150,14 +155,18 @@ function Fight() {
         }
     };
 
+    const handleClickLeaderBoard = () => {
+        setShowLeaderBoard(true);
+    };
+
   return (
     <div className="fight">
         <div className='HeaderFight'>
-            <button style={{visibility:'hidden'}}>Leave </button>
+            <button className='leaveFight' onClick={handleClickLeaderBoard}><img src={leaderBoardImage} alt='LeaderBoard' /> </button>
             <div className='title-container'>
                 <span className='title' style={{color:"#9B1D20"}}>{StarterLVL}</span>
             </div>
-            <button className='leaveFight'>Leave </button>
+            <button className='leaveFight'><img src={leaveImage} alt='Leave' /></button>
         </div>
         <div className='containerFight'>
             <div className='fightZone'>
@@ -192,6 +201,7 @@ function Fight() {
                 </div>
             )}
         </div>
+        {showLeaderBoard && <LeaderBoard />}
     </div>
   );
 }
