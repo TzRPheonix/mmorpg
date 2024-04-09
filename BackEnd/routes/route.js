@@ -297,7 +297,7 @@ router.post('/login', async (req, res) => {
       console.log(match)
       if (match) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '168h' });
-        return res.status(200).json({ message: 'Authentification réussie.', username: user.username, token});
+        return res.status(200).json({ message: 'Authentification réussie.', username: user.username, token, starterName: user.starterName});
       } else {
         return res.status(400).json({ message: 'Authentification échouée.' });
       }
