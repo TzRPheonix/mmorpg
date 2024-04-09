@@ -55,4 +55,30 @@
   }
 
 
-  
+  .messageBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(169, 23, 23, 0.8);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    animation: fadeInOut 3s ease;
+    animation-fill-mode: forwards;
+  }
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

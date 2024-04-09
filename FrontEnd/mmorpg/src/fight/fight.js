@@ -59,7 +59,7 @@ async function handleEndCombat(starterPV, monsterPV) {
 }
 
 function Fight() {
-    const playerName = localStorage.getItem('username');
+    const username = localStorage.getItem('username');
     const [StarterLVL, setStarterLVL] = useState(null);
     const [StarterPV, setStarterPV] = useState(null);
     const [StarterMAXPV, setStarterMAXPV] = useState(null);
@@ -68,6 +68,9 @@ function Fight() {
     const [monsterPV, setMonsterPV] = useState(null);
     const [monsterMAXPV, setMonsterMAXPV] = useState(null);
     const [monsterDMG, setMonsterDMG] = useState(null);
+    const [nbPotion, setNbPotion] = useState(null);
+    const [message, setMessage] = useState(null);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -76,6 +79,7 @@ function Fight() {
             setStarterPV(data.starterPV);
             setStarterMAXPV(data.starterMAXPV);
             setStarterDMG(data.starterDMG);
+            setNbPotion(data.healthPotionCount);
         };
 
         fetchData();
@@ -103,6 +107,30 @@ function Fight() {
         }
         if (newMonsterPV <= 0 || StarterPV <= 0) {
             handleEndCombat(StarterPV, newMonsterPV);
+        }
+    };
+
+    const handlePotion = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/useHealthPotion', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, StarterPV })
+            });
+            const data = await response.json();
+            console.log(data.message);
+            console.log(StarterPV)
+            console.log(data)
+            console.log(data.newPV)
+            if (StarterPV !== data.newPV) {
+                setNbPotion(nbPotion - 1);
+                setStarterPV(data.newPV);
+            }
+            setMessage(data.message);
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -140,18 +168,21 @@ function Fight() {
         <div className='containerFight'>
             <div className='fightZone'>
                 <div className='playerZone'>
-                    <span>{playerName}</span>
+                    <span>{username}</span>
                     <div className='lifeBar'>
-                    <LifeBar health={75} />
+                    <LifeBar health={Math.floor((StarterPV / StarterMAXPV) * 100)} />
                     </div>
                     <span style={{color:'#F4B860'}}>PV : {StarterPV}/{StarterMAXPV}</span>
                     <br></br>
                     <span style={{color:'#F4B860'}}>Damage : {StarterDMG}</span>
+                    <div className='potionZone'>
+                        <button className='potionButton' onClick={handlePotion}>Potion : {nbPotion}</button>
+                    </div>
                 </div>
                 <div className='monsterZone'>
                     <span >{monsterName}</span>
                     <div className='lifeBar'>
-                    <LifeBar health={100} />
+                    <LifeBar health={Math.floor((monsterPV / monsterMAXPV) * 100)} />
                     </div>
                     <span style={{color:'#F4B860'}}>PV : {monsterPV}/{monsterMAXPV}</span>
                     <br></br>
@@ -161,6 +192,11 @@ function Fight() {
             <div className='attack'>
                 <button className='btnAttack' onClick={handleAttack}>Attack</button>
             </div>
+            {message && (
+                <div className="messageBox">
+                    {message}
+                </div>
+            )}
         </div>
     </div>
   );
