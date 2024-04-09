@@ -84,6 +84,17 @@
 }
 
 .imgStarterFight {
-    width: 20vh;
-    height: 20vh;
+    width: 50vh;
+    height: 50vh;
+}
+
+.leaveFight {
+    background-color: #32373B;
+    border: none;
+
+}
+
+.imgSetting {
+    width: 50px;
+    height: 50px;
 }

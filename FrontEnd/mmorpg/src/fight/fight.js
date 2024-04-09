@@ -185,11 +185,11 @@ function Fight() {
   return (
     <div className="fight">
         <div className='HeaderFight'>
-            <button className='leaveFight' onClick={handleClickLeaderBoard}><img src={leaderBoardImage} alt='LeaderBoard' /> </button>
+            <button className='leaveFight' onClick={handleClickLeaderBoard}><img className='imgSetting' src={leaderBoardImage} alt='LeaderBoard' /> </button>
             <div className='title-container'>
                 <span className='title' style={{color:"#9B1D20"}}>{StarterLVL}</span>
             </div>
-            <button className='leaveFight' onClick={handleClickLeave}><img src={leaveImage} alt='Leave' /></button>
+            <button className='leaveFight' onClick={handleClickLeave}><img className='imgSetting' src={leaveImage} alt='Leave' /></button>
         </div>
         <div className='containerFight'>
             <div className='fightZone'>
