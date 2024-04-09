@@ -163,7 +163,6 @@ router.get('/getRandomMonster/:username', async (req, res) => {
     if (existingUser.starterLVL % 5 == 0) {
       randomMonster.monsterPV = Math.round(randomMonster.monsterPV * 1.5);
       randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * 1.5);
-      console.log("Combat de boss !")
     }
     res.json(randomMonster);
   } catch (error) {
@@ -191,7 +190,6 @@ router.put('/EndCombat', async (req, res) => {
     
     if (Math.random() < 0.2) {
       existingUser.healthPotionCount += 1;
-      console.log('Potion de soin trouvée !');
     }
     if (starterPV < existingUser.starterPV) {
       existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 2;
@@ -213,19 +211,23 @@ router.put('/EndCombat', async (req, res) => {
 
 router.put('/useHealthPotion', async (req, res) => {
   const { username, StarterPV } = req.body;
+  console.log(StarterPV)
   try {
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
       return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
+    if (StarterPV == 0) {
+      return res.status(200).json({ message: 'Vous êtes mort.', newPV: 0});
+    }
     if (existingUser.healthPotionCount <= 0) {
       return res.status(200).json({ message: 'Pas de potion de soin.', newPV: StarterPV });
     }
-    if (existingUser.starterPV == existingUser.starterMAXPV) {
+    if (StarterPV == existingUser.starterMAXPV) {
       return res.status(200).json({ message: 'Déjà en pleine santé!', newPV: StarterPV });
     }
     existingUser.healthPotionCount -= 1;
-    newHP = Math.min(StarterPV + 20, existingUser.starterMAXPV);
+    newHP = Math.min(StarterPV * 0.2, existingUser.starterMAXPV);
     await existingUser.save();
     res.status(200).json({ message: 'Potion de soin utilisée.', newPV: newHP });
   } catch (error) {
@@ -292,9 +294,7 @@ router.post('/login', async (req, res) => {
       if (!user) {
         return res.status(400).json({ message: 'Utilisateur introuvable.' });
       }
-      console.log('user ', user.username);
       const match = await bcrypt.compare(password, user.password);
-      console.log(match)
       if (match) {
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '168h' });
         return res.status(200).json({ message: 'Authentification réussie.', username: user.username, token, starterName: user.starterName});
