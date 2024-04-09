@@ -2,6 +2,7 @@ import './fight.css';
 import React, { useState, useEffect } from 'react';
 import LifeBar from './lifeBar/lifeBar';
 import './fight.css'; 
+import leaveImage from './../img/icons8-settings-50.png'
 
 async function loadUserInfo() {
     try {
@@ -163,7 +164,7 @@ function Fight() {
             <div className='title-container'>
                 <span className='title' style={{color:"#9B1D20"}}>{StarterLVL}</span>
             </div>
-            <button className='leaveFight'>Leave </button>
+            <button className='leaveFight'> <img src={leaveImage} alt='Leave' /></button>
         </div>
         <div className='containerFight'>
             <div className='fightZone'>
