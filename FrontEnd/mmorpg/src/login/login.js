@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  localStorage.clear();
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -28,12 +29,12 @@ function Login() {
       const data = await response.json();
       console.log(data);
       if (data.token) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.token);  
         localStorage.setItem('username', data.username);
         if (data.starterName === "None") {
           window.location.href = 'http://localhost:3001/choiceStarter';
         }else{
-          window.location.href = 'http://localhost:3001/fight ';
+          window.location.href = 'http://localhost:3001/Fight ';
         }
       }
     } catch (error) {
