@@ -47,7 +47,7 @@ return (
                                 <span>Name : Tygraxe</span>
                                 <span>PV : 150</span>
                                 <span>Damage: 5</span>
-                                <span><img src={logoTygraxe} alt="Tygraxe" /></span>
+                                <span><img className="imgStarter" src={logoTygraxe} alt="Tygraxe" /></span>
                         </div>
                         <button className="select-button" onClick={() => handleChoiceStarter("Tygraxe", 150, 5)}>Select</button>
                     </div>
@@ -56,7 +56,7 @@ return (
                                 <span>Name : Volpeur</span>
                                 <span>PV : 100</span>
                                 <span>Damage: 10</span>
-                                <span><img src={logoVolpeur} alt="Volpeur" /></span>
+                                <span><img className="imgStarter" src={logoVolpeur} alt="Volpeur" /></span>
                         </div>
                         <button className="select-button" onClick={() => handleChoiceStarter("Volpeur", 100, 10)}>Select</button>
                     </div>
@@ -65,7 +65,7 @@ return (
                                 <span>Name : Azerty</span>
                                 <span>PV : 80</span>
                                 <span>Damage: 20</span>
-                                <span><img src={logoAzerty} alt="Azerty" /></span>
+                                <span><img className="imgStarter" src={logoAzerty} alt="Azerty" /></span>
                         </div>
                         <button className="select-button" onClick={() => handleChoiceStarter("Azerty", 80, 20)}>Select</button>
                     </div>
@@ -74,7 +74,7 @@ return (
                                 <span>Name : Valstrax</span>
                                 <span>PV : 90</span>
                                 <span>Damage: 15</span>
-                                <span><img src={logoValstrax} alt="Valstrax" /></span>
+                                <span><img className="imgStarter" src={logoValstrax} alt="Valstrax" /></span>
                         </div>
                         <button className="select-button" onClick={() => handleChoiceStarter("Valstrax", 90, 15)}>Select</button>
                     </div>
@@ -83,7 +83,7 @@ return (
                                     <span>Name : Monokuma</span>
                                     <span>PV : 60</span>
                                     <span>Damage: 30</span>
-                                    <span><img src={logoMonokuma} alt="Monokuma" /></span>
+                                    <span><img className="imgStarter" src={logoMonokuma} alt="Monokuma" /></span>
                             </div>
                             <button className="select-button" onClick={() => handleChoiceStarter("Monokuma", 60, 30)}>Select</button>
                     </div>
@@ -92,7 +92,7 @@ return (
                                 <span>Name : Fatalix</span>
                                 <span>PV : 170</span>
                                 <span>Damage: 3</span>
-                                <span><img src={logoFatalix} alt="Fatalix" /></span>
+                                <span><img className="imgStarter" src={logoFatalix} alt="Fatalix" /></span>
                         </div>
                         <button className="select-button" onClick={() => handleChoiceStarter("Fatalix", 170, 3)}>Select</button>
                     </div>

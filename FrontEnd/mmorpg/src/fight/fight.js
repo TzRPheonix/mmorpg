@@ -204,7 +204,7 @@ function Fight() {
                     <div className='potionZone'>
                         <button className='potionButton' onClick={handlePotion}>Potion : {nbPotion}</button>
                     </div>
-                    {starterName && <span><img src={logosMap[starterName]} alt={starterName} /></span>}
+                    {starterName && <span className='imgStarterFight    '><img src={logosMap[starterName]} alt={starterName} /></span>}
                 </div>
                 <div className='monsterZone'>
                     <span style={{color:'#FFFFFF'}}>{monsterName}</span>

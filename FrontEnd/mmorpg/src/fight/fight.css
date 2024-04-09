@@ -82,3 +82,8 @@
         opacity: 0;
     }
 }
+
+.imgStarterFight {
+    width: 50vh !important;
+    height: 50vh !important;
+}
