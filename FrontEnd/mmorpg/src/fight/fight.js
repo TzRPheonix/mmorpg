@@ -6,6 +6,12 @@ import leaveImage from '../img/settings.png';
 import leaderBoardImage from '../img/leaderboard.png'
 import LeaderBoard from './leaderBoard/leaderBoard';
 import Leave from './leave/leave';
+import logoTygraxe from "../photoStarter/Tygraxe.png";
+import logoVolpeur from "../photoStarter/Volpeur.png";
+import logoAzerty from "../photoStarter/Azerty.png";
+import logoValstrax from "../photoStarter/Valstrax.png";
+import logoMonokuma from "../photoStarter/Monokuma.png";
+import logoFatalix from "../photoStarter/Fatalix.png";
 
 async function loadUserInfo() {
     try {
@@ -74,6 +80,7 @@ function Fight() {
     const [monsterDMG, setMonsterDMG] = useState(null);
     const [nbPotion, setNbPotion] = useState(null);
     const [message, setMessage] = useState(null);
+    const [starterName, setStarterName] = useState(null)
 
     const [showLeaderBoard, setShowLeaderBoard] = useState(false);
     const [showLeave, setShowLeave] = useState(false);
@@ -86,6 +93,7 @@ function Fight() {
             setStarterPV(data.starterPV);
             setStarterMAXPV(data.starterMAXPV);
             setStarterDMG(data.starterDMG);
+            setStarterName(data.starterName);
             setNbPotion(data.healthPotionCount);
         };
 
@@ -165,6 +173,15 @@ function Fight() {
         setShowLeave(true);
     };
 
+    const logosMap = {
+        'Tygraxe': logoTygraxe,
+        'Volpeur': logoVolpeur,
+        'Azerty': logoAzerty,
+        'Valstrax': logoValstrax,
+        'Monokuma': logoMonokuma,
+        'Fatalix': logoFatalix
+    };
+
   return (
     <div className="fight">
         <div className='HeaderFight'>
@@ -177,7 +194,7 @@ function Fight() {
         <div className='containerFight'>
             <div className='fightZone'>
                 <div className='playerZone'>
-                    <span>{username}</span>
+                    <span style={{color:'#FFFFFF'}}>  {username} avec {starterName}</span>
                     <div className='lifeBar'>
                     <LifeBar health={Math.floor((StarterPV / StarterMAXPV) * 100)} />
                     </div>
@@ -187,9 +204,10 @@ function Fight() {
                     <div className='potionZone'>
                         <button className='potionButton' onClick={handlePotion}>Potion : {nbPotion}</button>
                     </div>
+                    {starterName && <span><img src={logosMap[starterName]} alt={starterName} /></span>}
                 </div>
                 <div className='monsterZone'>
-                    <span >{monsterName}</span>
+                    <span style={{color:'#FFFFFF'}}>{monsterName}</span>
                     <div className='lifeBar'>
                     <LifeBar health={Math.floor((monsterPV / monsterMAXPV) * 100)} />
                     </div>
