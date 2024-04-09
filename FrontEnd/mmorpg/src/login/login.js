@@ -30,7 +30,11 @@ function Login() {
       if (data.token) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('username', data.username);
-        window.location.href = 'http://localhost:3001/choiceStarter';
+        if (data.starterName === "None") {
+          window.location.href = 'http://localhost:3001/choiceStarter';
+        }else{
+          window.location.href = 'http://localhost:3001/fight ';
+        }
       }
     } catch (error) {
       alert('An error occurred. Please try again.');

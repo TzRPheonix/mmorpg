@@ -122,9 +122,6 @@ function Fight() {
             });
             const data = await response.json();
             console.log(data.message);
-            console.log(StarterPV)
-            console.log(data)
-            console.log(data.newPV)
             if (StarterPV !== data.newPV) {
                 setNbPotion(nbPotion - 1);
                 setStarterPV(data.newPV);
@@ -135,7 +132,15 @@ function Fight() {
         }
     };
 
-    const handleDamage = () => {
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleDamage(StarterPV,monsterDMG);
+        }, 5000);
+
+        return () => clearInterval(interval);   
+    }, [StarterPV, monsterDMG]);
+
+    const handleDamage = (StarterPV,monsterDMG) => {
         const newPlayerPV = StarterPV - monsterDMG;
         if (newPlayerPV < 0) {
             setStarterPV(0);
@@ -146,16 +151,6 @@ function Fight() {
             handleEndCombat(StarterPV, monsterPV);
         }
     };
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         handleDamage();
-    //     }, 5000);
-
-    //     return () => {
-    //         clearInterval(interval);
-    //     };
-    // }, []);
 
   return (
     <div className="fight">
