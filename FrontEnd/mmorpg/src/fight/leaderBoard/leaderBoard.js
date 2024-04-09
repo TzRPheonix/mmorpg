@@ -39,15 +39,27 @@ function LeaderBoard() {
             <div className='leaderBoard-content'>
                 <span className='leaderBoard-title'>LeaderBoard </span>
                 <div className='leaderBoard-container'>
-                    {leaderboardData.map(user => (
-                        <div key={user.id} className='user'>
-                            <span className='username'>{user.username}</span>
-                            <span className='killcount'>{user.killCount}</span>
-                            <span className='deathCount'>{user.deathCount}</span>
-                            <span className='level'>{user.starterLVL}</span>
-                        </div>
-                    ))}
-                </div>
+                        <table className='leaderBoard-table'>
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Kill Count</th>
+                                    <th>Death Count</th>
+                                    <th>Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {leaderboardData.map(user => (
+                                    <tr key={user.id} className={user.username === username ? 'bold-row' : ''}>
+                                        <td>{user.username}</td>
+                                        <td>{user.killCount}</td>
+                                        <td>{user.deathCount}</td>
+                                        <td>{user.starterLVL}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
             </div>
         </div>
     </div>
