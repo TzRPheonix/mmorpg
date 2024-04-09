@@ -1,6 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './login/login.js';
 import Register from './register/register.js';
@@ -9,9 +8,9 @@ import Fight from './fight/fight.js';
 import Leave from './fight/leave/leave.js';
 import LeaderBoard from './fight/leaderBoard/leaderBoard.js';
 
-export default function App() {
+function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -20,8 +19,8 @@ export default function App() {
         <Route path="/leave" element={<Leave />} />
         <Route path="/leaderBoard" element={<LeaderBoard />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+export default App;

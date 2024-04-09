@@ -12,6 +12,8 @@ function Login() {
     setEmail(event.target.value);
   }
 
+  console.log("pain")
+
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   }

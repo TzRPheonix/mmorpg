@@ -88,6 +88,32 @@
     height: 50vh;
 }
 
+.imgMonster {
+    width: 50vh;
+    height: 50vh;
+}
+
+.moveAnimation {
+    animation-name: moveLeftAndBack;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+  
+  @keyframes moveLeftAndBack {
+    0% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-80px);
+    }
+    85% {
+        transform: translateX(30px);
+      }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
 .leaveFight {
     background-color: #32373B;
     border: none;
@@ -98,3 +124,4 @@
     width: 50px;
     height: 50px;
 }
+

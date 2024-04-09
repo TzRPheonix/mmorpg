@@ -1,6 +1,7 @@
 import './fight.css'; 
 import React, { useState, useEffect } from 'react';
 import LifeBar from './lifeBar/lifeBar';
+import DamageDisplay from './damageDisplay/damageDisplay';
 import './fight.css'; 
 import leaveImage from '../img/settings.png';
 import leaderBoardImage from '../img/leaderboard.png'
@@ -12,11 +13,35 @@ import logoAzerty from "../photoStarter/Azerty.png";
 import logoValstrax from "../photoStarter/Valstrax.png";
 import logoMonokuma from "../photoStarter/Monokuma.png";
 import logoFatalix from "../photoStarter/Fatalix.png";
+import AquaTail from "../monsters/AquaTail.png";
+import BoulderHide from "../monsters/BoulderHide.png";
+import BrambleThorn from "../monsters/BrambleThorn.png";
+import CinderSpike from "../monsters/CinderSpike.png";
+import CrystalClaw from "../monsters/CrystalClaw.png";
+import DawnFeather from "../monsters/DawnFeather.png";
+import DuskClaw from "../monsters/DuskClaw.png";
+import ElectroBuzz from "../monsters/ElectroBuzz.png";
+import FlameTail from "../monsters/FlameTail.png";
+import FrostBreath from "../monsters/FrostBreath.png";
+import GaleBeak from "../monsters/GaleBeak.png";
+import IronScale from "../monsters/IronScale.png";
+import LunarFur from "../monsters/LunarFur.png";
+import MistWalk from "../monsters/MistWalk.png";
+import MysticWing from "../monsters/MysticWing.png";
+import NebulaWisp from "../monsters/NebulaWisp.png";
+import QuartzHorn from "../monsters/QuartzHorn.png";
+import RazorFin from "../monsters/RazorFin.png";
+import ShadeFlicker from "../monsters/ShadeFlicker.png";
+import ShadowPelt from "../monsters/ShadowPelt.png";
+import StormHorn from "../monsters/StormHorn.png";
+import TerraRoot from "../monsters/TerraRoot.png";  
+import ThunderClap from "../monsters/ThunderClap.png";
+import TidePulse from "../monsters/TidePulse.png";
+import VenomFang from "../monsters/VenomFang.png";
 
 async function loadUserInfo() {
     try {
         const username = localStorage.getItem('username');
-        console.log(username);
         const response = await fetch(`http://localhost:3000/api/getUser/${username}`, {
             method: 'GET',
             headers: {
@@ -33,7 +58,6 @@ async function loadUserInfo() {
 async function getRandomMonster() {
     try {
         const username = localStorage.getItem('username');
-        console.log(username);
         const response = await fetch(`http://localhost:3000/api/getRandomMonster/${username}`, {
             method: 'GET',
             headers: {
@@ -96,20 +120,19 @@ function Fight() {
             setStarterName(data.starterName);
             setNbPotion(data.healthPotionCount);
         };
-
+        console.log("user info")
         fetchData();
     }, []);
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getRandomMonster();
-            console.log(data)
             setMonsterName(data.monstername);
             setMonsterPV(data.monsterPV);
             setMonsterMAXPV(data.monsterPV);
             setMonsterDMG(data.monsterDMG);
         };
-
+        console.log("fetch monster")
         fetchData();
     }, []);
 
@@ -153,16 +176,26 @@ function Fight() {
         return () => clearInterval(interval);   
     }, [StarterPV, monsterDMG]);
 
-    const handleDamage = (StarterPV,monsterDMG) => {
+    const handleDamage = (StarterPV, monsterDMG) => {
         const newPlayerPV = StarterPV - monsterDMG;
         if (newPlayerPV < 0) {
-            setStarterPV(0);
+          setStarterPV(0);
         } else {
-            setStarterPV(newPlayerPV);
+          setStarterPV(newPlayerPV);
         }
         if (monsterPV <= 0 || StarterPV <= 0) {
-            handleEndCombat(StarterPV, monsterPV);
+          handleEndCombat(StarterPV, monsterPV);
         }
+        const imgElement = document.querySelector('.imgMonster');
+        imgElement.classList.add('moveAnimation');
+    
+        const damageDisplay = document.querySelector('.damage-display');
+        damageDisplay.classList.add('damage-animation');
+    
+        setTimeout(() => {
+            imgElement.classList.remove('moveAnimation');
+          damageDisplay.classList.remove('damage-animation');
+        }, 1000);
     };
 
     const handleClickLeaderBoard = () => {
@@ -180,6 +213,34 @@ function Fight() {
         'Valstrax': logoValstrax,
         'Monokuma': logoMonokuma,
         'Fatalix': logoFatalix
+    };
+
+    const monsterLogosMap = {
+        'AquaTail': AquaTail,
+        'BoulderHide': BoulderHide,
+        'BrambleThorn': BrambleThorn,
+        'CinderSpike': CinderSpike,
+        'CrystalClaw': CrystalClaw,
+        'DawnFeather': DawnFeather,
+        'DuskClaw': DuskClaw,
+        'ElectroBuzz': ElectroBuzz,
+        'FlameTail': FlameTail,
+        'FrostBreath': FrostBreath,
+        'GaleBeak': GaleBeak,
+        'IronScale': IronScale,
+        'LunarFur': LunarFur,
+        'MistWalk': MistWalk,
+        'MysticWing': MysticWing,
+        'NebulaWisp': NebulaWisp,
+        'QuartzHorn': QuartzHorn,
+        'RazorFin': RazorFin,
+        'ShadeFlicker': ShadeFlicker,
+        'ShadowPelt': ShadowPelt,
+        'StormHorn': StormHorn,
+        'TerraRoot': TerraRoot,
+        'ThunderClap': ThunderClap,
+        'TidePulse': TidePulse,
+        'VenomFang': VenomFang,
     };
 
   return (
@@ -214,7 +275,10 @@ function Fight() {
                     <span style={{color:'#F4B860'}}>PV : {monsterPV}/{monsterMAXPV}</span>
                     <br></br>
                     <span style={{color:'#F4B860'}}>Damage : {monsterDMG}</span>
+                    {monsterName && <span><img className='imgMonster' src={monsterLogosMap[monsterName]} alt={monsterName} /></span>}
                 </div>
+                {monsterDMG && <DamageDisplay damage={monsterDMG} visible={true} />}
+
             </div>
             <div className='attack'>
                 <button className='btnAttack' onClick={handleAttack}>Attack</button>
