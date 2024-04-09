@@ -211,7 +211,6 @@ router.put('/EndCombat', async (req, res) => {
 
 router.put('/useHealthPotion', async (req, res) => {
   const { username, StarterPV } = req.body;
-  console.log(StarterPV)
   try {
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
@@ -227,7 +226,7 @@ router.put('/useHealthPotion', async (req, res) => {
       return res.status(200).json({ message: 'Déjà en pleine santé!', newPV: StarterPV });
     }
     existingUser.healthPotionCount -= 1;
-    newHP = Math.min(StarterPV * 0.2, existingUser.starterMAXPV);
+    const newHP = Math.round(Math.min(StarterPV * 1.2, existingUser.starterMAXPV));
     await existingUser.save();
     res.status(200).json({ message: 'Potion de soin utilisée.', newPV: newHP });
   } catch (error) {
