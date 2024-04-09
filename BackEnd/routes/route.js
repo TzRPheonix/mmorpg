@@ -193,7 +193,9 @@ router.put('/EndCombat', async (req, res) => {
       existingUser.healthPotionCount += 1;
       console.log('Potion de soin trouvée !');
     }
-    existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 2;
+    if (starterPV < existingUser.starterPV) {
+      existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 2;
+    }
     existingUser.starterMAXPV += 2;
     existingUser.starterDMG += 2;
     existingUser.starterLVL += 1;
@@ -208,22 +210,22 @@ router.put('/EndCombat', async (req, res) => {
 });
 
 router.put('/useHealthPotion', async (req, res) => {
-  const { username } = req.body;
+  const { username, StarterPV } = req.body;
   try {
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
-      return res.status(200).json({ message: 'Utilisateur introuvable.' });
+      return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
     if (existingUser.healthPotionCount <= 0) {
-      return res.status(200).json({ message: 'Pas de potion de soin.' });
+      return res.status(200).json({ message: 'Pas de potion de soin.', newPV: StarterPV });
     }
     if (existingUser.starterPV == existingUser.starterMAXPV) {
-      return res.status(200).json({ message: 'Déjà en pleine santé!' });
+      return res.status(200).json({ message: 'Déjà en pleine santé!', newPV: StarterPV });
     }
     existingUser.healthPotionCount -= 1;
-    existingUser.starterPV = Math.min(existingUser.starterPV + 20, existingUser.starterMAXPV);
+    newHP = Math.min(StarterPV + 20, existingUser.starterMAXPV);
     await existingUser.save();
-    res.status(200).json({ message: 'Potion de soin utilisée.' });
+    res.status(200).json({ message: 'Potion de soin utilisée.', newPV: newHP });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
