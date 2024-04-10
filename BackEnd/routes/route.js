@@ -158,8 +158,8 @@ router.get('/getRandomMonster/:username', async (req, res) => {
     const count = await monsterModel.countDocuments();
     const randomIndex = Math.floor(Math.random() * count);
     const randomMonster = await monsterModel.findOne().skip(randomIndex);
-    randomMonster.monsterPV += Math.round(randomMonster.monsterPV * (existingUser.starterLVL / 10));
-    randomMonster.monsterDMG += Math.round(randomMonster.monsterDMG * (existingUser.starterLVL / 10));
+    randomMonster.monsterPV += Math.round(randomMonster.monsterPV * (existingUser.starterLVL * 0.5));
+    randomMonster.monsterDMG += Math.round(randomMonster.monsterDMG * (existingUser.starterLVL * 0.1));
     if (existingUser.starterLVL % 5 == 0) {
       randomMonster.monsterPV = Math.round(randomMonster.monsterPV * 1.5);
       randomMonster.monsterDMG = Math.round(randomMonster.monsterDMG * 1.5);
@@ -192,12 +192,12 @@ router.put('/EndCombat', async (req, res) => {
       existingUser.healthPotionCount += 1;
     }
     if (starterPV < existingUser.starterPV) {
-      existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 2;
+      existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 10;
     }else {
-      existingUser.starterPV += 2;
+      existingUser.starterPV += 10;
     }
-    existingUser.starterMAXPV += 2;
-    existingUser.starterDMG += 2;
+    existingUser.starterMAXPV += 10;
+    existingUser.starterDMG += 1;
     existingUser.starterLVL += 1;
     existingUser.killCount += 1;
 
@@ -211,24 +211,29 @@ router.put('/EndCombat', async (req, res) => {
 
 router.put('/useHealthPotion', async (req, res) => {
   const { username, StarterPV } = req.body;
+  console.log(StarterPV)
   try {
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
       return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
     if (StarterPV == 0) {
+      console.log('Vous êtes mort.')
       return res.status(200).json({ message: 'Vous êtes mort.', newPV: 0});
     }
     if (existingUser.healthPotionCount <= 0) {
+      console.log('Pas de potion de soin.')
       return res.status(200).json({ message: 'Pas de potion de soin.', newPV: StarterPV });
     }
     if (StarterPV == existingUser.starterMAXPV) {
+      console.log('Déjà en pleine santé!')
       return res.status(200).json({ message: 'Déjà en pleine santé!', newPV: StarterPV });
     }
     existingUser.healthPotionCount -= 1;
-    const newHP = Math.round(Math.min(StarterPV * 1.2, existingUser.starterMAXPV));
+    console.log('existingUser.healthPotionCount', existingUser.healthPotionCount)
+    const newPV = Math.round(Math.min(StarterPV * 1.2, existingUser.starterMAXPV));
     await existingUser.save();
-    res.status(200).json({ message: 'Potion de soin utilisée.', newPV: newHP });
+    res.status(200).json({ message: 'Potion de soin utilisée.', newPV: newPV, nbPotion: existingUser.healthPotionCount });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
