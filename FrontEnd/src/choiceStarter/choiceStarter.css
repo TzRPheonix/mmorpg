@@ -1,0 +1,63 @@
+.ChoiceStarter{
+    height: 100vh;
+    background-color: #32373B;
+}
+
+.HeaderChoiceStarter{
+   text-align: center;
+   width: 100%;
+   height: auto;
+}
+
+.Choice {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.square {
+    width: 200px;
+    height: 200px;
+    background-color: #F4B860;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.select-button {
+    padding: 5px 10px;
+    background-color: #9B1D20;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 1em;
+}
+
+.titleChoiceStarter{
+    display: block;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 1em;
+}
+
+.imgStarter {
+    width: 100px;
+    height: 100px;
+}
