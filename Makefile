@@ -1,6 +1,9 @@
 include .env
 
-SSH_PORT=221
+SSH_USER=appdeploy
+SSH_HOST=team2.bettercalldave.io
+SSH_PORT=222
+APP_FILES=./FrontEnd/*
 
 push:
 	ssh -o StrictHostKeyChecking=no -p $(SSH_PORT) $(SSH_USER)@$(SSH_HOST) "rm -rf $(APP_PATH_BACK) && mkdir -p $(APP_PATH_BACK)"
