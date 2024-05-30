@@ -26,7 +26,7 @@ push: build
 		echo DATABASE_URL=$(DATABASE_URL) >> $(APP_PATH_BACK)/.env && \
 		cd $(APP_PATH_BACK) && \
 		npm i && \
-		systemctl restart mmorpg"
+		sudo systemctl restart mmorpg"
 
 debug:
 	@echo "ENV=$(ENV)"
