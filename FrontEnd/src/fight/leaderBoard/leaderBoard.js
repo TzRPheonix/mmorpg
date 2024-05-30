@@ -14,7 +14,6 @@ async function loadLeaderBoard() {
             }
         });
         const data = await response.json();
-        console.log("Leaderboard data:", data);
         return data;
     } catch (error) {
         console.error(error);
@@ -29,7 +28,6 @@ function LeaderBoard({ onClose }) {
     useEffect(() => {
         const fetchData = async () => {
             const data = await loadLeaderBoard();
-            console.log(data)
             setLeaderboardData(data);
         };
 

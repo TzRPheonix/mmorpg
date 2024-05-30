@@ -1,12 +1,17 @@
 import './leave.css'; 
 import React, { useState } from 'react';
 
-function Leave({ onClose}) {
+function Leave({ onClose }) {
     const [showLeave, setShowLeave] = useState(true);
 
     const handleContinue = () => {
         setShowLeave(false);
         onClose();
+    };
+
+    const handleQuit = () => {
+        localStorage.clear();
+        window.location.href = "https://team2.bettercalldave.io/";
     };
 
     if (!showLeave) {
@@ -21,6 +26,7 @@ function Leave({ onClose}) {
 
                     <div className='leave-btn'>
                         <button className='continue-btn' onClick={handleContinue}>Continue</button>
+                        <button className='quit-btn' onClick={handleQuit}>Quitter</button>
                     </div>
                 </div>
             </div>
