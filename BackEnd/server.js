@@ -11,7 +11,7 @@ const mongoString = process.env.DATABASE_URL;
 
 const limiter = rateLimit({
     windowMs: 60 * 1000,
-    max: 1,
+    max: 10 ,
     message: 'Too many requests.'
   });
 
