@@ -9,6 +9,7 @@ APP_FILES_FRONT=./FrontEnd/build/*
 
 build:
 	cd FrontEnd/ && npm i && CI=false npm run build
+	cd BackEnd/ && npm i && CI=false npm run build
 
 deploy: build
 	ssh -o StrictHostKeyChecking=no -p $(SSH_PORT) $(SSH_USER)@$(SSH_HOST) "rm -rf $(APP_PATH_FRONT) && mkdir -p $(APP_PATH_FRONT)"
