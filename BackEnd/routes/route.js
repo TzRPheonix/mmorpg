@@ -286,7 +286,7 @@ function verifyToken(token) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded;
   } catch (error) {
-    throw new Error('Token invalide ou expiré.');
+    throw new Error('Token invalide ou expiré.' + error.message);
   }
 }
 
