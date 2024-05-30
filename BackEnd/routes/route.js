@@ -39,7 +39,7 @@ router.use((req, res, next) => {
     if (req.path === '/register' || req.path === '/login' ||req.path.startsWith('/reset-password')) {
       next();
     } else {
-      verifyToken(req, res, next);
+      verifyAccessToken(req, res, next);
     }
   });
 
