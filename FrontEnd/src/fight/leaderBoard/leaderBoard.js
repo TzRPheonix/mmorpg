@@ -5,8 +5,6 @@ import { X } from 'lucide-react';
 
 async function loadLeaderBoard() {
     try {
-        const username = localStorage.getItem('username');
-        console.log(username);
         const response = await fetch(`https://team2-ws.bettercalldave.io/api/leaderboard`, {
             method: 'GET',
             headers: {
@@ -14,12 +12,12 @@ async function loadLeaderBoard() {
             }
         });
         const data = await response.json();
+        console.log("Leaderboard data:", data);
         return data;
     } catch (error) {
         console.error(error);
     }
 }
-
 
 function LeaderBoard({ onClose }) {
     const username = localStorage.getItem('username');
