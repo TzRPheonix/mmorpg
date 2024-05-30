@@ -7,7 +7,7 @@ async function loadLeaderBoard() {
     try {
         const username = localStorage.getItem('username');
         console.log(username);
-        const response = await fetch(`http://localhost:3000/api/leaderboard`, {
+        const response = await fetch(`http://team2-ws.bettercalldave.io/api/leaderboard`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

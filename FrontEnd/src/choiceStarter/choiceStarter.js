@@ -14,7 +14,7 @@ function ChoiceStarter() {
 
     function HandleChoiceStarter(starterName, starterPV, starterDMG) {
         const token = localStorage.getItem('token');
-        fetch('http://localhost:3000/api/addStarterToUser', {
+        fetch('http://team2-ws.bettercalldave.io/api/addStarterToUser', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

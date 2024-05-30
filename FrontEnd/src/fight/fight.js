@@ -49,7 +49,7 @@ async function loadUserInfo() {
     }
 
     const response = await fetch(
-      `http://localhost:3000/api/getUser/`,
+      `http://team2-ws.bettercalldave.io/api/getUser/`,
       {
         method: "GET",
         headers: {
@@ -74,7 +74,7 @@ async function getRandomMonster() {
   const token = localStorage.getItem("token");
   try {
     const response = await fetch(
-      `http://localhost:3000/api/getRandomMonster/`,
+      `http://team2-ws.bettercalldave.io/api/getRandomMonster/`,
       {
         method: "GET",
         headers: {
@@ -96,7 +96,7 @@ async function handleEndCombat(starterPV, monsterPV, nbPotion) {
   try {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    await fetch("http://localhost:3000/api/EndCombat", {
+    await fetch("http://team2-ws.bettercalldave.io/api/EndCombat", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +104,7 @@ async function handleEndCombat(starterPV, monsterPV, nbPotion) {
       },
       body: JSON.stringify({ starterPV, monsterPV, nbPotion }),
     });
-    window.location.href = "http://localhost:3001/Fight";
+    window.location.href = "http://team2.bettercalldave.io/Fight";
   } catch (error) {
     console.error(error);
   }
