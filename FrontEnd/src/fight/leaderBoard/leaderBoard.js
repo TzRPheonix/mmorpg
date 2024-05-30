@@ -4,11 +4,13 @@ import { X } from 'lucide-react';
 
 
 async function loadLeaderBoard() {
+    const token = localStorage.getItem("token");
     try {
         const response = await fetch(`https://team2-ws.bettercalldave.io/api/leaderboard`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             }
         });
         const data = await response.json();
