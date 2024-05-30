@@ -43,13 +43,13 @@ router.post('/register', async (req, res) => {
     email = email.toLowerCase();
     const existingEmail = await userModel.findOne({ email });
     if (existingEmail) {
-      return res.status(400).json({ message: 'Email déjà enregistré.' });
+      return res.status(400).json({ message: 'Enregistrement échoué.' });
     }
 
     username = username.toLowerCase();
     const existingUsername = await userModel.findOne({ username });
     if (existingUsername) {
-      return res.status(400).json({ message: 'Nom déjà enregistré.' });
+      return res.status(400).json({ message: 'Enregistrement échoué.' });
     }
 
     if ( username === '' || email === '' || password === '' || passwordConfirm === '') {
