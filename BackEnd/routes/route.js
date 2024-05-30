@@ -13,7 +13,7 @@ function verifyToken(req, res, next) {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'Token manquant.', redirectTo: '/login' });
+    return res.status(401).json({ message: 'Token manquant.', redirectTo: 'https://team2.bettercalldave.io/' });
   }
 
   try {
