@@ -29,7 +29,7 @@ function verifyToken(req, res, next) {
 }
 
 router.use((req, res, next) => {
-    if (req.path === '/register' || req.path.startsWith('/reset-password')) {
+    if (req.path === '/register' || req.path === '/login' ||req.path.startsWith('/reset-password')) {
       next();
     } else {
       verifyToken(req, res, next);
