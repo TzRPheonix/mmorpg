@@ -5,12 +5,21 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routeur = require("./routes/route");
+const rateLimit = require('express-rate-limit');
 
 const mongoString = process.env.DATABASE_URL;
 
+const limiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 1,
+    message: 'Too many requests.'
+  });
+
+  
 const app = express();
 const port = 3000
 
+app.use(limiter);
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
