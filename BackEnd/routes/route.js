@@ -8,6 +8,33 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+// Middleware verification token
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token manquant.' });
+  }
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    
+    req.userId = decodedToken.userId;
+    req.username = decodedToken.username;
+    
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'Token invalide ou expiré.' });
+  }
+}
+
+router.use((req, res, next) => {
+    if (req.path === '/register' || req.path.startsWith('/reset-password')) {
+      next();
+    } else {
+      verifyToken(req, res, next);
+    }
+  });
 
 // Post Method for registering a new account
 router.post('/register', async (req, res) => {
@@ -66,15 +93,9 @@ router.post('/register', async (req, res) => {
 // Put Method for adding starter info in User
 router.put('/addStarterToUser', async (req, res) => {
   const { starterName, starterPV, starterDMG } = req.body;
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Token manquant.' });
-  }
 
   try {
-    const decodedToken = verifyToken(token);
-    const username = decodedToken.username;
+    const username = req.username;
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
       return res.status(400).json({ message: 'Utilisateur introuvable.' });
@@ -193,11 +214,11 @@ router.get('/getRandomMonster/', async (req, res) => {
   }
 
   try {
-    const decodedToken = verifyToken(token);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const username = decodedToken.username;
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
-      return res.status(400).json({ message: 'User introuvable.' });
+      return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
     const count = await monsterModel.countDocuments();
     const randomIndex = Math.floor(Math.random() * count);
@@ -224,11 +245,11 @@ router.put('/EndCombat', async (req, res) => {
   }
 
   try {
-    const decodedToken = verifyToken(token);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const username = decodedToken.username;
     const existingUser = await userModel.findOne({ username });
     if (!existingUser) {
-      return res.status(200).json({ message: 'Utilisateur introuvable.' });
+      return res.status(400).json({ message: 'Utilisateur introuvable.' });
     }
     if (starterPV <= 0) {
       existingUser.starterPV = existingUser.starterMAXPV;
@@ -237,7 +258,7 @@ router.put('/EndCombat', async (req, res) => {
       return res.status(200).json({ message: 'Vous avez perdu.' });
     }
     if (starterPV > 0 && monsterPV > 0) {
-      return res.status(200).json({ message: 'Vous avez leave.' });
+      return res.status(200).json({ message: 'Vous avez quitté.' });
     }
     
     existingUser.healthPotionCount = nbPotion;
@@ -247,8 +268,8 @@ router.put('/EndCombat', async (req, res) => {
     }
 
     if (starterPV < existingUser.starterPV) {
-      existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5))+ 10;
-    }else {
+      existingUser.starterPV = Math.round(starterPV + ((existingUser.starterPV - starterPV) * 0.5)) + 10;
+    } else {
       existingUser.starterPV = starterPV + 10;
     }
     existingUser.starterMAXPV += 10;
@@ -258,7 +279,7 @@ router.put('/EndCombat', async (req, res) => {
 
     await existingUser.save();
 
-    res.status(200).json({ message: 'Gagné ! LVL augmenté.'});
+    res.status(200).json({ message: 'Gagné ! Niveau augmenté.' });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -285,16 +306,6 @@ router.get('/getAll', async (req, res) => {
     }
 })
 
-// Validate token method
-function verifyToken(token) {
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return decoded;
-  } catch (error) {
-    throw new Error('Token invalide ou expiré.');
-  }
-}
-
 // Get user method for an account
 router.get('/getUser/', async (req, res) => {
   const token = req.headers.authorization;
@@ -304,7 +315,7 @@ router.get('/getUser/', async (req, res) => {
   }
 
   try {
-    const decodedToken = verifyToken(token);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const username = decodedToken.username;
 
     const user = await userModel.findOne({ username });
@@ -315,7 +326,7 @@ router.get('/getUser/', async (req, res) => {
       res.status(404).json({ message: 'Utilisateur non trouvé.' });
     }
   } catch (error) {
-    // Si le token est invalide ou expiré, renvoyez une erreur
+    // If the token is invalid or expired, return an error
     res.status(401).json({ message: 'Token invalide ou expiré.' });
   }
 });
