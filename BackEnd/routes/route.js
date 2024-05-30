@@ -288,12 +288,12 @@ router.put('/EndCombat', async (req, res) => {
 // Get leaderboard Info
 router.get('/leaderboard', async (req, res) => {
   try {
-    const data = await userModel.find({}, { username: 1, killCount: 1, deathCount: 1, starterLVL: 1 });
+    const data = await userModel.find({}, { username: 1, killCount: 1, deathCount: 1, starterLVL: 1 }).limit(10);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-})
+});
 
 // Get all method for account
 router.get('/getAll', async (req, res) => {
