@@ -104,7 +104,7 @@ async function handleEndCombat(starterPV, monsterPV, nbPotion) {
       },
       body: JSON.stringify({ starterPV, monsterPV, nbPotion }),
     });
-    window.location.href = "https://team2.bettercalldave.io/Fight";
+    window.location.href = "https://team2.bettercalldave.io/fight";
   } catch (error) {
     console.error(error);
   }
