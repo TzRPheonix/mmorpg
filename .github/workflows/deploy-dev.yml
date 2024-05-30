@@ -1,0 +1,27 @@
+name: deploy-dev
+
+on:
+  push:
+    branches:
+      - dev
+    tags-ignore:
+      - '*'
+
+concurrency: deploy-dev
+
+jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v3
+        - name: Setup SSH Key
+          uses: webfactory/ssh-agent@v0.5.3
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        - name: Deploy to dev
+          run: make push
+          env:
+            ENV: dev
+            JWT_SECRET: ${{ secrets.JWT_SECRET }}
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
