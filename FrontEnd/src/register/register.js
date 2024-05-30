@@ -30,7 +30,7 @@ function Register() {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://team2-ws.bettercalldave.io/api/register', {
+          const response = await fetch('https://team2-ws.bettercalldave.io/api/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

@@ -20,7 +20,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://team2-ws.bettercalldave.io/api/login', {
+      const response = await fetch('https://team2-ws.bettercalldave.io/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
