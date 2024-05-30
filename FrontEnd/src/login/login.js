@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import './login.css'; 
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); 
-
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -32,9 +29,9 @@ function Login() {
       if (data.token) {
         localStorage.setItem('token', data.token);  
         if (data.starterName === "None") {
-          navigate('/choiceStarter');
+          window.location.href('https://team2.bettercalldave.io/choiceStarter');
         }else{
-          navigate('/fight');
+          window.location.href('https://team2.bettercalldave.io/fight');
         }
       } else {
         alert('Utilisateur introuvable. Veuillez réessayer.');

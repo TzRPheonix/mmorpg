@@ -1,7 +1,6 @@
 import './register.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 function Register() {
 
@@ -9,7 +8,6 @@ function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const navigate = useNavigate(); 
 
     const handleChangeUsername = (event) => {
         setUsername(event.target.value);
@@ -43,7 +41,7 @@ function Register() {
             alert(data.message);
           } else {
             alert('Enregistrement réussi, redirection vers la connexion.');
-            navigate('/');
+            window.location.href('https://team2.bettercalldave.io/');
           }
         } catch (error) {
           console.error('Error:', error);

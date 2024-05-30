@@ -5,13 +5,8 @@ import logoAzerty from "../photoStarter/Azerty.png";
 import logoValstrax from "../photoStarter/Valstrax.png";
 import logoMonokuma from "../photoStarter/Monokuma.png";
 import logoFatalix from "../photoStarter/Fatalix.png";
-import { useNavigate } from 'react-router-dom';
-
-
 
 function ChoiceStarter() {
-    const navigate = useNavigate(); 
-
     function HandleChoiceStarter(starterName, starterPV, starterDMG) {
         const token = localStorage.getItem('token');
         fetch('https://team2-ws.bettercalldave.io/api/addStarterToUser', {
@@ -31,7 +26,7 @@ function ChoiceStarter() {
             console.log(data.message);
             alert(data.message);
             console.log(data)
-            navigate('/fight');
+            window.location.href = "https://team2.bettercalldave.io/fight";
         })
         .catch(error => {
             console.error(error); 
