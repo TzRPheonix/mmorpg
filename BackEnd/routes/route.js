@@ -7,31 +7,24 @@ const { sendEmail } = require('../services/user');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const refreshTokenModel = require('../models/refreshTokenModel');
 
+// Middleware verification token
+function verifyToken(req, res, next) {
+  const token = req.headers.authorization;
 
-// Function to generate access and refresh tokens
-function generateTokens(payload) {
-  const accessToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-  const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
-  return { accessToken, refreshToken };
-}
-
-// Middleware to verify access token
-function verifyAccessToken(req, res, next) {
-  const accessToken = req.headers.authorization;
-
-  if (!accessToken) {
-    return res.status(401).json({ message: 'Access token missing.' });
+  if (!token) {
+    return res.status(401).json({ message: 'Token manquant.' });
   }
 
   try {
-    const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    
     req.userId = decodedToken.userId;
     req.username = decodedToken.username;
+    
     next();
   } catch (error) {
-    return res.status(401).json({ message: 'Invalid or expired access token.' });
+    return res.status(401).json({ message: 'Token invalide ou expiré.' });
   }
 }
 
@@ -39,38 +32,9 @@ router.use((req, res, next) => {
     if (req.path === '/register' || req.path === '/login' ||req.path.startsWith('/reset-password')) {
       next();
     } else {
-      verifyAccessToken(req, res, next);
+      verifyToken(req, res, next);
     }
   });
-
-
-// POST method for refreshing access token using refresh token
-router.post('/refresh-token', async (req, res) => {
-  const { refreshToken } = req.body;
-  
-  if (!refreshToken) {
-    return res.status(401).json({ message: 'Refresh token missing.' });
-  }
-
-  try {
-    // Verify refresh token
-    const decodedToken = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
-    const userId = decodedToken.userId;
-
-    // Check if refresh token is valid
-    const tokenExists = await refreshTokenModel.exists({ userId, token: refreshToken });
-    if (!tokenExists) {
-      return res.status(401).json({ message: 'Invalid refresh token.' });
-    }
-
-    // Generate new access token
-    const newAccessToken = jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    return res.status(200).json({ accessToken: newAccessToken });
-  } catch (error) {
-    return res.status(401).json({ message: 'Invalid refresh token.' });
-  }
-});
 
 // Post Method for registering a new account
 router.post('/register', async (req, res) => {
@@ -382,31 +346,25 @@ router.delete('/deleteUser', async (req, res) => {
 });
 
 
-// POST method for user login
+// Post method for user login
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await userModel.findOne({ email });
-
-    if (!user) {
-      return res.status(400).json({ message: 'User not found.' });
+    const { email, password } = req.body;
+    try {
+      const user = await userModel.findOne({ email });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Utilisateur introuvable.' });
+      }
+      const match = await bcrypt.compare(password, user.password);
+      if (match) {
+        const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '168h' });
+        return res.status(200).json({ message: 'Authentification réussie.', token, starterName: user.starterName});
+      } else {
+        return res.status(400).json({ message: 'Authentification échouée.' });
+      }
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
     }
-
-    const match = await bcrypt.compare(password, user.password);
-
-    if (!match) {
-      return res.status(400).json({ message: 'Incorrect password.' });
-    }
-
-    const { accessToken, refreshToken } = generateTokens({ userId: user._id, username: user.username });
-
-    const newRefreshToken = new refreshTokenModel({ userId: user._id, token: refreshToken });
-    await newRefreshToken.save();
-
-    return res.status(200).json({ message: 'Authentication successful.', accessToken, refreshToken });
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
 });
   
 //Password Reset Request Method
