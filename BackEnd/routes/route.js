@@ -33,6 +33,11 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Username entre 3 et 12 caractère.' });
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: 'Email invalide.' });
+    }
+
     if (password !== passwordConfirm) {
       return res.status(400).json({ message: 'Les mots de passe ne correspondent pas.' });
     }
