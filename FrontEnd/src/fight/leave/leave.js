@@ -26,7 +26,7 @@ function Leave({ onClose }) {
 
                     <div className='leave-btn'>
                         <button className='continue-btn' onClick={handleContinue}>Continue</button>
-                        <button className='quit-btn' onClick={handleQuit}>Quitter</button>
+                        <button className='quit-btn' onClick={handleQuit}>Leave</button>
                     </div>
                 </div>
             </div>
