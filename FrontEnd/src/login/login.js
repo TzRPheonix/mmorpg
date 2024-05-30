@@ -29,9 +29,9 @@ function Login() {
       if (data.token) {
         localStorage.setItem('token', data.token);  
         if (data.starterName === "None") {
-          window.location.href('https://team2.bettercalldave.io/choiceStarter');
+          window.location.href = 'https://team2.bettercalldave.io/choiceStarter';
         }else{
-          window.location.href('https://team2.bettercalldave.io/fight');
+          window.location.href = 'https://team2.bettercalldave.io/fight';
         }
       } else {
         alert('Utilisateur introuvable. Veuillez réessayer.');

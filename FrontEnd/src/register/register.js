@@ -41,7 +41,7 @@ function Register() {
             alert(data.message);
           } else {
             alert('Enregistrement réussi, redirection vers la connexion.');
-            window.location.href('https://team2.bettercalldave.io/');
+            window.location.href = 'https://team2.bettercalldave.io/';
           }
         } catch (error) {
           console.error('Error:', error);
