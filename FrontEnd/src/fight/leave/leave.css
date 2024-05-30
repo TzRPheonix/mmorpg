@@ -16,14 +16,14 @@
     text-align: center;
 }
 
-.leave-btn{
+.leave-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 4em;
 }
 
-.continue-btn,.stop-btn{
+.continue-btn, .quit-btn {
     width: 14em;
     height: 4em;
     color: #000;
@@ -33,17 +33,17 @@
     cursor: pointer;
 }
 
-.continue-btn{
+.continue-btn {
     background-color: #F4B860;
 }
 
-.stop-btn{
+.quit-btn {
     background-color: #9B1D20;
 }
-.title{
+
+.title {
     display: block;
     font-size: 4em;
     color: #9B1D20;
     font-weight: bold;
 }
-  
